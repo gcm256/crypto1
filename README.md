@@ -4,11 +4,11 @@ Comparison of AES cipher modes: (Block size 128 bits, Key size 128, 192 or 256 b
 
 Property                               | ECB   | CBC   | CFB   | OFB   | CTR   | GCM   | EAX
 ---------                            | :---: | :---: | :---: | :---: | :---: | :---: | :---:
-Multi-block Semantic Security |:x:|:white_check_mark &dagger;: | :white_check_mark &dagger;: | :white_check_mark &dagger;: | :white_check_mark &Dagger;: | :white_check_mark &Dagger;: | :white_check_mark &Dagger;:
+Multi-block Semantic Security |:x:| :white_check_mark: &dagger; | :white_check_mark: &dagger; | :white_check_mark: &dagger; | :white_check_mark: &Dagger; | :white_check_mark: &Dagger; | :white_check_mark: &Dagger; |
 No Padding Needed. Is a stream &ast; |:x:|:x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 
 Parallel Encrypt                     |:white_check_mark: |:x:| :x:                | :x:                | :white_check_mark: | :white_check_mark: | 
 Parallel Decrypt                     |:white_check_mark:     | :white_check_mark: | :white_check_mark: | :x: |:white_check_mark:| :white_check_mark: | 
-AEAD                                 |:x:|:x: | :x: | :x: | :x: | :white_check_mark: | :white_check_mark:
+AEAD                                 |:x:|:x: | :x: | :x: | :x: | :white_check_mark: | :white_check_mark: |
 
 
 &ast; Stream because plaintext block is not input to the Encrypt/Decrypt block function. Hence padding of plaintext to match blocksize is not needed.
