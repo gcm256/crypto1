@@ -18,17 +18,14 @@ Plaintext is XOR'ed to the output of the Encrypt/Decrypt block function. So outp
 
 &Dagger; When used with one-time chosen nonce
 
+---
 
-JCA/JCE Documentation: 
+JCA/JCE Documentation:  
+JAVA8 https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html   
+JAVA9 https://docs.oracle.com/javase/9/security/java-cryptography-architecture-jca-reference-guide.htm   
 
-JAVA8 https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
-
-JAVA9 https://docs.oracle.com/javase/9/security/java-cryptography-architecture-jca-reference-guide.htm
-
-JSSE Documentation:
-
-JAVA8 https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html
-
+JSSE Documentation:   
+JAVA8 https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html   
 JAVA9 https://docs.oracle.com/javase/9/security/java-secure-socket-extension-jsse-reference-guide.htm
 
 TODO: Add documentation of how to use JSSE and JCE in combination for various cases eg using non-default `TrustManager` that are:
