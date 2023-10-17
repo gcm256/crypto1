@@ -9,7 +9,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.spec.GCMParameterSpec;
 
-class Main {
+class DataCrypto {
 
   public static final String PROVIDER = "SunJCE";
 
@@ -20,26 +20,33 @@ class Main {
   private static final int NONCE_SIZE = 12; // In bytes.
   private static final int TAG_SIZE = 16; // In bytes.
 
+  /**
+   * Main. Demonstrates use of AEAD in Java using AES-GCM encryption.
+   * Ref: https://docs.oracle.com/javase/7/docs/api/javax/crypto/Cipher.html
+   */
   public static void main(String[] args) {
     System.out.println("Hello world!");
     //listCryptoProvidersInfo();
     //Provider p = Security.getProvider("SunJCE");
-    System.out.println("Here");
-    try{
+    try {
+      // AES-GCM (AES encrypt/decrypt in GCM mode, which includes a TAG/MAC for authentication at the end of the ciphertext) is one of the AEAD that are CCA-secure.
+      // CCA-security is more secure than CPA(Chosen Plaintext Attack)-security, as the former also includes a verifiable tag/mac.
+      // Ref: https://docs.oracle.com/javase/7/docs/api/javax/crypto/Cipher.html
       Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding", "SunJCE");
     }
-    catch(Exception e){
-      System.out.println("Ex1: " + e.getMessage());
+    catch(Exception e) {
+      System.out.println("ERROR: [Algorithm not Supported]" + e.getMessage());
     }
-    String headerAAD = "[header = PPP!]";
+    String headerAAD = "[header = xyz]"; // Additional Data (AD) to be used in AEAD.
     String plaintext = "This is a plaintxt. I got it done and then some to do there...";
     System.out.println("Plaintext = " + plaintext);
     System.out.println("Header = " + headerAAD);
-    try{
-      System.out.println("Coded = " + encrypt(plaintext, headerAAD));
+    try {
+      // Note: encrypt() method itself creates the key, so each call to encrypt() will use new AES key.
+      System.out.println("Encoded = " + encrypt(plaintext, headerAAD));
     }
-    catch(Exception e){
-      System.out.println("Ex2: " + e.getMessage());
+    catch(Exception e) {
+      System.out.println("ERROR During Encryption: " + e.getMessage());
     }
   }
 
@@ -61,16 +68,14 @@ class Main {
     return s2;
   }
 
-
-
   private static String aesEncryptAndHexify(String headerAAD, byte[] key, String plainData, byte[] nonce) throws Exception {
     SecretKeySpec keySpec = new SecretKeySpec(key, ALGO_AES);
     GCMParameterSpec paramSpec = new GCMParameterSpec(TAG_SIZE*8, nonce);
     //IvParameterSpec paramSpec = new IvParameterSpec(nonce);
     Cipher cipher = Cipher.getInstance(CIPHER_AES_TRANSFORMATION, PROVIDER);
     cipher.init(Cipher.ENCRYPT_MODE, keySpec, paramSpec);
-    cipher.updateAAD(headerAAD.getBytes());
-    byte[] ciphertext = cipher.doFinal(plainData.getBytes());
+    cipher.updateAAD(headerAAD.getBytes()); // Add the optional Additional Associated Data for AEAD. Note: AAD will be checked during decrypt().
+    byte[] ciphertext = cipher.doFinal(plainData.getBytes()); // The ciphertext[] inclused the 16-byte tag at the end.
     return bytesToHex(nonce) + bytesToHex(ciphertext);//Hex.encodeHexString(ciphertext);
     }
 

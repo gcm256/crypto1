@@ -14,6 +14,13 @@ def main():
   d = data_decrypt(headerAAD, session_key_in_hex,cipher_in_hex)
   print "D = " + d
 
+##
+# data_decrypt(): Decrypts data encrypted by DataCrypto.java Java code.
+#
+# param: The AAD (Additional Associated Data) for AEAD.
+# param: The AES key (as a hex string).
+# param: nonce+ciphertext+tag (as a hex string).
+##
 def data_decrypt(headerAAD, session_key_in_hex, encrypted_data_in_hex):
   #s = StringIO(binascii.unhexlify(encrypted_data_in_hex))
   #nonce, ciphertext, tag = [ s.read(x) for x in (12, 19, -1) ]
