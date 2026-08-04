@@ -140,7 +140,7 @@ Elliptic Curve Cryptography (ECC) is a public-key (asymmetric) cryptography syst
 > This AES key is then used for encryption/decryption of the subsequent communication between Alice and Bob, in most cases.
 > The asymmetry is only in the ECDH Key-Establishment, since Alice and Bob generate random secrets $a$ and $b$ respectively as the first step of the ECDH.
 > These $a$ and $b$ are called ephemeral private-keys because they are secret keying material that control the generation of the shared secret via ECDH.
-> More precisely, $a$ and 4b$ are ephemeral ECDH private keys (secret scalars) used for key agreement.
+> More precisely, $a$ and $b$ are ephemeral ECDH private keys (secret scalars) used for key agreement.
 > Then, the encryption decryption of messages in the subsequent communication in the session, is symmetric.
 
 
