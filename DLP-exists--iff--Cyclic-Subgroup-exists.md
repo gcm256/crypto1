@@ -50,9 +50,10 @@ Klaus Hulek — Elementary Algebraic Geometry.    ❌
 ## Conceptual Grasp (ie without "The Arithmetic of Elliptic Curves" Book)
 
 > [!IMPORTANT]
-> For **Conceptual Intuitive Grasp**: 
-> * Silverman & Tate — Rational Points on Elliptic Curves (RPEC) 
-> * Lawrence C. Washington — [Elliptic Curves: Number Theory and Cryptography, 2nd edition](https://math.umd.edu/~lcw/ellipticcurves.html) 
+> For **Conceptual Intuitive Grasp**:
+> * Robert Bix — [Conics and Cubics: A Concrete Introduction to Algebraic Curves, 2nd Edition, 2006](https://link.springer.com/book/10.1007/0-387-39273-4)
+> * Silverman & Tate — [Rational Points on Elliptic Curves (RPEC), 2nd Edition, 2015](https://www.math.brown.edu/johsilve/RPECHome.html)
+> * Lawrence C. Washington — [Elliptic Curves: Number Theory and Cryptography, 2nd Edition, 2008](https://math.umd.edu/~lcw/ellipticcurves.html) 
 > * Hankerson & Menezes & Vanstone — [Guide to Elliptic Curve Cryptography](https://cacr.uwaterloo.ca/ecc/)
 > ---
 > You do not need Dummit & Foote, nor do you need any algebraic geometry book. For your specific goal of understanding public-key cryptography and safety criteria like those on [SafeCurves](https://safecurves.cr.yp.to/), the combination of RPEC + Washington or RPEC + Hankerson is completely self-contained.
