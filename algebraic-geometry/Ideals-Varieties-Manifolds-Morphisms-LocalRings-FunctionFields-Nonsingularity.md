@@ -8,6 +8,43 @@ A useful slogan is:
 >  **Ideals describe equations → varieties are their solution sets → local rings describe functions near a point → function fields 
 >  describe rational functions globally → morphisms are the maps that make these objects into geometry.**
 
+### Conceptual Summary:
+
+| Concept             | Conceptual idea                                                                                              | Intuition                          |
+| ------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------- |
+| **Ideals**          | Algebraic collections of elements, especially polynomials, that encode systems of equations.                 | **Equations**                      |
+| **Varieties**       | Geometric spaces described by polynomial equations.                                                          | **Shapes cut out by equations**    |
+| **Manifolds**       | Spaces that locally look like ordinary Euclidean space.                                                      | **Locally flat/smooth spaces**     |
+| **Morphisms**       | Structure-preserving maps between algebraic-geometric objects.                                               | **Meaningful maps**                |
+| **Local Rings**     | Rings describing the algebraic behavior of functions **near a particular point**.                            | **Algebra near a point**           |
+| **Local Fields**    | Fields equipped with a suitable notion of locality, usually a valuation/topology; e.g. $\text{ℚ}_p$ or ℝ.    | **Fields viewed locally**          |
+| **Function Rings**  | Rings consisting of functions on a space, closed under addition and multiplication.                          | **Functions on a space**           |
+| **Function Fields** | Fields of rational functions on an irreducible algebraic variety.                                            | **Generic rational functions**     |
+| **Non-singularity** | The condition that a geometric object is algebraically smooth at a point; its local ring is regular.         | **No algebraic “bad point”**       |
+| **Schemes**         | Generalized varieties built from **prime ideals and local rings**, allowing much more algebraic flexibility. | **Spaces made from local algebra** |
+| **Stacks**          | Generalizations of schemes that can also remember **symmetries/automorphisms** of objects.                   | **Spaces + symmetries**            |
+
+
+### Relationships and Distinctions:
+
+| Concepts                              | Relationship / distinction                                                                                                                                                                                  |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ideal ↔ Variety**                   | **Ideal → equations; Variety → solutions.** This is the basic algebra ↔ geometry correspondence.                                                                                                            |
+| **Variety ↔ Scheme**                  | A variety is a relatively concrete kind of algebraic-geometric space; a **scheme generalizes varieties** and can handle nilpotents, arithmetic phenomena, and more general rings.                           |
+| **Scheme ↔ Stack**                    | A **stack generalizes a scheme** by retaining information about automorphisms/symmetries that ordinary spaces may forget.                                                                                   |
+| **Function Ring ↔ Function Field**    | A function **ring** contains functions defined on a space/region; a function **field** allows division by nonzero functions and describes rational/generic behavior.                                        |
+| **Function Ring ↔ Local Ring**        | A local ring can be thought of as taking functions and focusing on what matters **near one point**.                                                                                                         |
+| **Local Ring ↔ Non-singularity**      | A point is nonsingular when its **local ring is regular**. Thus local rings provide the algebraic test for smoothness.                                                                                      |
+| **Local Ring ↔ Scheme**               | Schemes are fundamentally built from **local rings**: each point of a scheme has a local ring describing its local algebraic structure.                                                                     |
+| **Function Field ↔ Variety**          | An irreducible variety has a **function field**, capturing its generic rational behavior rather than behavior at individual points.                                                                         |
+| **Morphisms ↔ All geometric objects** | Morphisms are the appropriate **maps** between varieties, schemes, and stacks; they preserve the relevant algebraic structure.                                                                              |
+| **Variety ↔ Manifold**                | Both are geometric spaces, but a variety is defined **algebraically**, while a manifold is defined by **local Euclidean structure**. A nonsingular variety can often have an associated manifold structure. |
+| **Non-singularity ↔ Manifold**        | Nonsingularity is the algebraic-geometric analogue of **smoothness**. A singular variety can fail to behave locally like a smooth manifold.                                                                 |
+| **Local Field ↔ Local Ring**          | Despite both saying “local,” they mean different things. A **local ring** focuses algebra around a point; a **local field** is a field equipped with a valuation/topology giving a notion of locality.      |
+| **Ideals ↔ Schemes**                  | Prime ideals become the **points of $\mathrm{Spec}(R)$**, while the corresponding local rings provide the algebra around those points.                                                                |
+| **Hierarchy**                         | Roughly: **rings → ideals → varieties/schemes → stacks**, with **local rings, function rings, function fields, and morphisms** providing the algebraic machinery for studying them.                         |
+
+
 I'll build this from algebra to geometry and then show how everything connects.
 
 # 1. Ideals — the algebraic starting point
@@ -432,6 +469,11 @@ And **schemes unify all of these ideas** by making the ring—and especially its
 
 If you're currently working through **Vakil's** **_The Rising Sea_**, the next useful step is to understand **why $Spec A$ is defined using prime ideals rather than maximal ideals**, because that one idea makes local rings, generic points, Zariski topology, and schemes start fitting together.
 
-
-
 ChatGPT is AI and can make mistakes.
+
+## Appendix and References [^1]
+
+<!-- iframe src="./your-document.pdf" width="100%" height="600px"></iframe -->
+
+[^1]: See also: https://share.gemini.google/COGLEkq3zOiN
+
