@@ -4,7 +4,7 @@ Comparison of AES cipher modes: (Block size 128 bits, Key size 128, 192 or 256 b
 
 Property                               | ECB   | CBC   | CFB   | OFB   | CTR   | GCM   | EAX
 ---------                            | :---: | :---: | :---: | :---: | :---: | :---: | :---:
-Multi-block Semantic Security |:x:| :white_check_mark: &dagger; | :white_check_mark: &dagger; | :white_check_mark: &dagger; | :white_check_mark: &Dagger; | :white_check_mark: &Dagger; | :white_check_mark: &Dagger; |
+Multi-block Semantic Security[^1] |:x:| :white_check_mark: &dagger; | :white_check_mark: &dagger; | :white_check_mark: &dagger; | :white_check_mark: &Dagger; | :white_check_mark: &Dagger; | :white_check_mark: &Dagger; |
 No Padding Needed. Is a stream &ast; |:x:|:x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 
 Parallel Encrypt                     |:white_check_mark: |:x:| :x:                | :x:                | :white_check_mark: | :white_check_mark: | 
 Parallel Decrypt                     |:white_check_mark:     | :white_check_mark: | :white_check_mark: | :x: |:white_check_mark:| :white_check_mark: | 
@@ -78,15 +78,15 @@ Public-Key Cryptography
 ```
 
 > [!NOTE]
-> 1. Think of ElGamal as "Diffie-Hellman plus encryption."
-> 2. Think of ECIES (Elliptic Curve Integrated Encryption Scheme) as a modernized, more robust descendant of EC-ElGamal.
+> 1. Think of ElGamal as "Diffie-Hellman-style key-agreement, plus encryption, both intertwined together."[^2]
+> 2. Think of ECIES (Elliptic Curve Integrated Encryption Scheme) as "a modernized, more modular, robust descendant of EC-ElGamal."[^2]
 
 ---
 
 ### PKCS (Public Key Cryptography Standard)
 
 - **PKCS #5**: Used in CBC padding for block ciphers.
-- **PKCS #1**: Used to expand given key (AES key) from 128 to 1024 bits before sharing and sending via RSA. Because, sending 128 bits encrypted in RSA, is vulnerable to Meet-in-the-Middle attack.
+- **PKCS #1**: Used to expand given key (AES key) from 128 to 1024 bits before sharing and sending via RSA. Because, sending 128 bits encrypted in RSA (plaintext size (128b) < RSA key/modulus size (1024b or 2048b)), is vulnerable to Meet-in-the-Middle attack.
   - **PKCS #1 v1.5**: v1.5 is still vulnerable to attack, since it gives quick error on not finding the 02 MSB in the RSA-encrypted ciphertext.
   - **PKCS #1 v2.0 = OAEP (Optimal Asymmetric Encryption Padding)**: Fixes the vulnerability of PKCS #1 v1.5.
 
@@ -177,14 +177,16 @@ End Session
 > [!IMPORTANT]
 > * The ephemeral ECDH private keys $a$ and $b$ are **deleted after each session**.
 > * Hence the system called ECDHE (Elliptic Curve Diffie–Hellman Ephemeral).
-> * Fresh session key ≠ forward secrecy.
+> * Fresh session key ≠ forward secrecy. Also ephemeral ≠ forward secrecy. The protocol must specifically ensure (eg by deleting $a$ & $b$ in case of ECDHE), that compromise of the long-term key **doesn't let an attacker reconstruct old session secrets from recorded traffic**.
 >   * If client uses $P$ to encrypt/wrap a freshly generated session key, sends it to server to decrypt with $S$, and they use this session key for message encryption/decryption:
 >     * It does provide fresh per-session key.
 >     * But it does not provide forward secrecy. Because: If an attacker records all encrypted communication of a session, and then gets $S$ in future, it can know the session key used (even if it was fresh), by decrypting the initial message of that session containing the wrapped session key sent by client to server. Therefore the attacker can then decrypt all other messages of that previously completed session as well.
->  * Using ephemeral ECDH private keys $a$ and $b$ to create shared session key $K$ provides both per-session freshness and forward secrecy.
+>  * Using **deletion-inevitable** ephemeral ECDH private keys $a$ and $b$ to create shared session key $K$ provides both per-session freshness and forward secrecy.
 >    * Compromise of $S$ will not expose/compromise messages of previously completed sessions. Although it will compromise the server authentication and hence future sessions.
 > * That's the fundamental reason modern TLS uses **ECDHE + a long-term CA-certified PKI key-pair & cert**, rather than simply using the CA-certified key to encrypt a freshly generated session key.
 > * CA-provided long-term key-pairs $S$ and $P$ are only used to authenticate the endpoint, typically by signing the handshake. They're not used to exchange session key/secret.
+
+:red_circle: **Fun Question:** How did browsers achieve forward secrecy before ECDHE?
 
 #### Safe Curves:
 
@@ -272,4 +274,17 @@ A Super-Elliptic Curve (SEC) is of the form $y^m = f(x)$ where $m ≥ 2$ and $f(
 
 #### https://www.hyperelliptic.org/
 
+## Glossary:
 
+* DH → key agreement
+* ElGamal → DH-style key agreement + encryption, both intertwined. Homomorphic. There is no separation of key-agreement and data-handling. Purely asymmetric public-key/group operation.
+* ECDH → elliptic-curve DH
+* EC-ElGamal → elliptic-curve ElGamal
+* ECDHE → ephemeral ECDH
+* ECIES → ECDH-based hybrid encryption. Asymmetric cryptography used for key-agreement. Symmetric cryptography used for data-handling.
+  * Advantage over EC-ElGamal: More modular and efficient for bulk operations compared to EC-ElGamal.
+  * Disadvantage wrt EC-ElGamal: Non-homomorphic. 
+* PKI → trust/identity infrastructure around public keys
+
+[^1]: https://en.wikipedia.org/wiki/Semantic_security, https://en.wikipedia.org/wiki/Ciphertext_indistinguishability, https://en.wikipedia.org/wiki/Template:Attack_models_in_cryptanalysis
+[^2]: [See Glossary](#glossary)
