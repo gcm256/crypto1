@@ -143,6 +143,48 @@ Elliptic Curve Cryptography (ECC) is a public-key (asymmetric) cryptography syst
 > More precisely, $a$ and $b$ are ephemeral ECDH private keys (secret scalars) used for key agreement.
 > Then, the encryption decryption of messages in the subsequent communication in the session, is symmetric.
 
+```
+Long-term CA-certified RSA/EC key-pair S & P (S = private key, P = public key)
+        │
+        ▼
+Begin Session Handshake eg TLS Handshake
+        │
+        ├── AUTHENTICATION (authenticates the server via signature → "I'm really bank.com")
+        │
+        ▼
+ECDHE ephemeral private keys a & b
+        │
+        ▼
+Fresh session secret K = KDF(a,b)
+        │
+        ▼
+Begin Session Communication of messages
+        │
+        ▼
+Session encryption using K with AEAD eg AES-GCM
+        │
+        ├── CONFIDENTIALITY
+        ├── INTEGRITY
+        │
+        ▼
+Ephemeral keys a & b DELETED at the end of the session
+        │
+        ▼
+End Session
+        └── FORWARD SECRECY (No one can reconstruct K in future since a & b deleted)
+```
+
+> [!IMPORTANT]
+> * The ephemeral ECDH private keys $a$ and $b$ are **deleted after each session**.
+> * Hence the system called ECDHE (Elliptic Curve Diffie–Hellman Ephemeral).
+> * Fresh session key ≠ forward secrecy.
+>   * If client uses $P$ to encrypt/wrap a freshly generated session key, sends it to server to decrypt with $S$, and they use this session key for message encryption/decryption:
+>     * It does provide fresh per-session key.
+>     * But it does not provide forward secrecy. Because: If an attacker records all encrypted communication of a session, and then gets $S$ in future, it can know the session key used (even if it was fresh), by decrypting the initial message of that session containing the wrapped session key sent by client to server. Therefore the attacker can then decrypt all other messages of that previously completed session as well.
+>  * Using ephemeral ECDH private keys $a$ and $b$ to create shared session key $K$ provides both per-session freshness and forward secrecy.
+>    * Compromise of $S$ will not expose/compromise messages of previously completed sessions. Although it will compromise the server authentication and hence future sessions.
+> * That's the fundamental reason modern TLS uses **ECDHE + a long-term CA-certified PKI key-pair & cert**, rather than simply using the CA-certified key to encrypt a freshly generated session key.
+> * CA-provided long-term key-pairs $S$ and $P$ are only used to authenticate the endpoint, typically by signing the handshake. They're not used to exchange session key/secret.
 
 #### Safe Curves:
 
