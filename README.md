@@ -143,13 +143,28 @@ Elliptic Curve Cryptography (ECC) is a public-key (asymmetric) cryptography syst
 > More precisely, $a$ and $b$ are ephemeral ECDH private keys (secret scalars) used for key agreement.
 > Then, the encryption decryption of messages in the subsequent communication in the session, is symmetric.
 
+#### Forward Secrecy (FS):
+
+**Forward secrecy (FS) is a property of the key-establishment protocol: compromise of the long-term authentication credentials after a session has ended must not enable an attacker, using the recorded handshake/traffic, to reconstruct the session's traffic secrets.**
+
+* Ephemeral-key destruction is one implementation mechanism that helps guarantee this; it is not the definition of FS.
+* Completed sessions can still be compromised by ways other than the compromise of long-term secrets that FS covers.
+  * ECDHE provides the FS mechanism, but the server must also manage retained secrets—particularly session-ticket encryption keys (TEKs)—in a way that doesn't provide a later path back to the old session secret.
+    * Ticket-encryption keys MUST be changed regularly (e.g. weekly), and old keys MUST be destroyed at the end of their validity period, specifically so as not to negate the benefits of forward secrecy.
+
 #### Use of ECDHE in TLS for Forward Secrecy:
 
 * TLS 1.2: ECDHE gives you forward secrecy (FS), but TLS 1.2 doesn't require it.
-  * TLS 1.2 Session Resumption: Uses previous session state. No ECDHE occurs (hence no FS) for resumed session. No concept of 0-RTT data.
+  * TLS 1.2 Session Resumption: Uses previous session state. No ECDHE occurs (hence no **new** FS contribution) for resumed session.
+    * FS status of resumed session remains same as that of the previous session.
+    * The resumption chain creates an ongoing dependency on retained resumption secrets, so the practical historical confidentiality of the chain depends on protecting those secrets until they are retired.
+      * If a TLS 1.2 session's `master_secret` remains usable for resumption, then the security of that resumption chain remains tied to that secret.
+      * Compromise of the ticket-encryption key (TEK) can compromise both the original session and resumed sessions derived from that session state.
+      * Once the server retires/destroys the relevant resumption state and ticket-encryption keys, future compromise of that resumption infrastructure can no longer expose those old sessions through that mechanism.
+  * No concept of 0-RTT data, unlike TLS 1.3.
 * TLS 1.3: ephemeral (EC)DHE is built into the handshake, so forward secrecy (FS) is the standard design.
   * TLS 1.2 Session Resumption (SR): Uses PSK (Pre-Shared Key) for SR.
-    * For PSK-only SR handshake: No FS for resumed sessions.
+    * For PSK-only SR handshake: PSK considered as long-term secret, but only for the resumed sessions. So no FS for resumed sessions. Original ECDHE session maintains FS.
     * For PSK+ECDHE SR handshake: No FS only for the 0-RTT data in the resumed sessions. Other data maintains FS.
 
 ```
