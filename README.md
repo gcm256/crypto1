@@ -145,8 +145,12 @@ Elliptic Curve Cryptography (ECC) is a public-key (asymmetric) cryptography syst
 
 #### Use of ECDHE in TLS for Forward Secrecy:
 
-* TLS 1.2: ECDHE gives you forward secrecy, but TLS 1.2 doesn't require it.
-* TLS 1.3: ephemeral (EC)DHE is built into the handshake, so forward secrecy is the standard design.
+* TLS 1.2: ECDHE gives you forward secrecy (FS), but TLS 1.2 doesn't require it.
+  * TLS 1.2 Session Resumption: Uses previous session state. No ECDHE occurs (hence no FS) for resumed session. No concept of 0-RTT data.
+* TLS 1.3: ephemeral (EC)DHE is built into the handshake, so forward secrecy (FS) is the standard design.
+  * TLS 1.2 Session Resumption (SR): Uses PSK (Pre-Shared Key) for SR.
+    * For PSK-only SR handshake: No FS for resumed sessions.
+    * For PSK+ECDHE SR handshake: No FS only for the 0-RTT data in the resumed sessions. Other data maintains FS.
 
 ```
 Long-term CA-certified RSA/EC key-pair S & P (S = private key, P = public key)
