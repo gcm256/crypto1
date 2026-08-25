@@ -471,9 +471,22 @@ If you're currently working through **Vakil's** **_The Rising Sea_**, the next u
 
 ChatGPT is AI and can make mistakes.
 
-## Appendix and References [^1]
+## Appendix and References [^1][^2][^3][^4][^5][^6][^7][^8][^9][^10][^11][^12][^13][^14]
 
 <!-- iframe src="./your-document.pdf" width="100%" height="600px"></iframe -->
 
 [^1]: See also: https://share.gemini.google/COGLEkq3zOiN
+[^2]: :play_or_pause_button: [Basic Algebraic Geometry : Varieties, Morphisms, Local Rings, Function Fields and Nonsingularity by Dr. T.E. Venkata Balaji, Department of Mathematics, IIT Madras](https://www.youtube.com/playlist?list=PLbMVogVj5nJSNj24jdPGivlJtxbxua2by)
+[^3]: :play_or_pause_button: [Algebraic Geometry (Lec#1): Motivations and Background | Some Basic Algebra | Nullstellensatz](https://www.youtube.com/watch?v=gYpHWBwK3_w)
+[^4]: :play_or_pause_button: [Algebraic geometry I: Varieties (Berkeley Math 256A Fall 2020)](https://www.youtube.com/playlist?list=PL8yHsr3EFj53j51FG6wCbQKjBgpjKa5PX)
+[^5]: :play_or_pause_button: [Ravi Vakil - Algebraic Geometry in the Time of Covid](https://www.youtube.com/playlist?list=PLBcFuJ7S2b56q-Iwv3tspc6auZdiQbYEt)
+[^6]: :memo: https://math216.wordpress.com/category/agittoc-2020/
+[^7]: :play_or_pause_button: [Basic Algebraic Geometry, Miles Reid](https://www.youtube.com/playlist?list=PLY28_CByrwHZ0UOqfuw6KVgKIE6-Go0RG)
+[^8]: :play_or_pause_button: [What is...algebraic geometry?](https://www.youtube.com/playlist?list=PLuFcVFHMIfhKrKhe0QEr8rVWdl8fZi85Y)
+[^9]: :play_or_pause_button: [Algebraic Geometry (Johannes Schmitt, Spring 2024)](https://www.youtube.com/playlist?list=PLq46Q92yretlI4c6WnjJGLyWlYYwNsCYe)
+[^10]: :framed_picture: [A pre-introduction to algebraic geometry by pictures](https://www.math.purdue.edu/~arapura/graph/algcurve.html)
+[^11]: :book: [William Fulton - ALGEBRAIC CURVES, An Introduction to Algebraic Geometry](https://sites.lsa.umich.edu/wfulton/curvebook-2/)
+[^12]: :memo: [Gathmann - Class Notes Algebraic Geometry](https://agag-gathmann.math.rptu.de/en/alggeom.php)
+[^13]: :book: [The Rising Sea: Foundations Of Algebraic Geometry](https://math.stanford.edu/%7Evakil/216blog/)
+[^14]: :memo: [Math 216: Foundations of algebraic geometry 2009-10](https://math.stanford.edu/~vakil/0910-216/)
 
