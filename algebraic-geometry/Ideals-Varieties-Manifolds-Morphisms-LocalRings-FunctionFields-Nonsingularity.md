@@ -491,6 +491,7 @@ ChatGPT is AI and can make mistakes.
 * :play_or_pause_button: [Basic Algebraic Geometry, Miles Reid](https://www.youtube.com/playlist?list=PLY28_CByrwHZ0UOqfuw6KVgKIE6-Go0RG)
 * :play_or_pause_button: [What is...algebraic geometry?](https://www.youtube.com/playlist?list=PLuFcVFHMIfhKrKhe0QEr8rVWdl8fZi85Y)
 * :play_or_pause_button: [Algebraic Geometry (Johannes Schmitt, Spring 2024)](https://www.youtube.com/playlist?list=PLq46Q92yretlI4c6WnjJGLyWlYYwNsCYe)
+* :play_or_pause_button: [ICTP Diploma - Algebraic Geometry - Lothar Göttsche](https://www.youtube.com/playlist?list=PLLq_gUfXAnkkeQKfjfWwyJP8eUV08Kygd)
 * :framed_picture: [A pre-introduction to algebraic geometry by pictures](https://www.math.purdue.edu/~arapura/graph/algcurve.html)
 * :book: [William Fulton - ALGEBRAIC CURVES, An Introduction to Algebraic Geometry](https://sites.lsa.umich.edu/wfulton/curvebook-2/)
 * :memo: [Gathmann - Class Notes Algebraic Geometry](https://agag-gathmann.math.rptu.de/en/alggeom.php)
