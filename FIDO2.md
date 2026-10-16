@@ -125,7 +125,9 @@ Even if the server itself is un-hackable, hackers use automated mass bots to att
 
 Because millions of people reuse the exact same passwords across multiple websites, these bots successfully guess thousands of correct logins every single hour. This is called a **Credential Stuffing attack**. To the server infrastructure, this causes a massive denial-of-service (DoS) load, slowing down the site for everyone else and resulting in widespread account takeovers without a single file on the server actually being hacked.
 
-### The Modern Solution: FIDO2 / Passkeys
+----
+
+## The Modern Solution: FIDO2 / Passkeys
 
 Because multiple OTPs do not solve this, the global cybersecurity industry is moving away from them entirely. 
 The modern standard to protect both the server and the user simultaneously is **Passkeys (FIDO2 technology)**.
@@ -133,13 +135,34 @@ The modern standard to protect both the server and the user simultaneously is **
 - **How it works:** Instead of a password or a text OTP, your login key is split into a public key on the government server and a private key locked inside your phone's hardware chip (activated only by your phone's fingerprint or face unlock).
 - **Why it wins:** Even if a hacker builds a perfect, fake clone website of a government portal, a Passkey _refuses to log in_. The underlying cryptography binds the key strictly to the official website domain name. It completely eliminates phishing, stops botnet attacks on the server, and provides a frictionless, zero-OTP user experience.
 
-India's digital infrastructure is slowly piloting this framework, but until it becomes standard across all public services, users are unfortunately stuck dealing with legacy OTP blast doors.
-
 A Passkey refuses to log in because it performs domain verification that is deeply embedded in the browser and operating system hardware, making it entirely independent of standard HTTPS checks.
 
-When you visit a phishing site, the padlock icon in the browser might look fine, and the HTTPS certificate might be perfectly valid for that fake domain. However, a Passkey completely bypasses this human layer of trust.
+When you visit a phishing site, the padlock icon (🔒) in the browser might look fine, and the HTTPS certificate might be perfectly valid for that fake domain. However, a Passkey completely bypasses this human layer of trust.
 
-## Passkey Scenarios
+India's digital infrastructure is slowly piloting this framework, but until it becomes standard across all public services, users are unfortunately stuck dealing with legacy OTP blast doors.
+
+### What Exactly Are Passkeys?
+
+A Passkey is a per-domain Private-Public key-pair, generated at the client user's device, and saved in the device's vault/keychain and encrypted by the user's biometric ID eg fingerprint
+or faceID etc.
+
+Unlike login/pswd, which _is_ the exact complete sufficient information needed to be known by anyone to use it and gain privileged access (2FA can still protect, but still the pswd is successfully stolen and you've to change it), the Passkey method is not usable (to gain privileged access) by anyone other than the client device where the passkey resides. For others, it only serves as a method to authenticate the client. This is because, a password is a fully **shared-secret** but a Passkey never ever shares its Private Key portion.
+
+- Think of a Passkey for a site/domain as a 2-part password created at the user device, and saved in a lookup table at the device, with each table entry mapping a site/domain (which the user accesses securely) to its respective Passkey.
+  - The Private portion never leaves the device.
+  - The Public portion can be totally public. In particular, it is given to the server behind the site/domain for which the Passkey was created.
+- The client is authenticated by a digital signature (signed by the client's device using the Passkey's Private portion).
+  - The server authenticates this client by verifying this client signature using the client's Passkey's Public portion (which the server has).
+- Authentication is achieved by:
+  -  A Digital Signature of the client (which others can verify, even if the Passkey's Private Key is a **non-exportable, isolated entity**).
+  
+  instead of by:
+  -  A Password, which is a **shared-secret** that both the client and server need to know, and hence can be leaked or stolen.
+
+The key point about Passkeys is, no information given to the server (or a potential hacker) can be used to gain access. The hacker on the other end receives absolutely nothing—no password, no session token, and no OTP—rendering the entire phishing attempt useless.
+
+
+### Passkey Scenarios
 
 | Scenario | Fake-Server?               | MITM?                      | Passkey exists on device?  |
 |----      |----                        |----                        |----                        |
@@ -152,10 +175,30 @@ When you visit a phishing site, the padlock icon in the browser might look fine,
 | 7        | $\color{red}{\text{YES}}$  | $\color{red}{\text{YES}}$  | ❌ |
 | 8        | $\color{red}{\text{YES}}$  | $\color{red}{\text{YES}}$  | ✅ |
 
-
 <!--
 [Y]: $\color{red}{\text{YES}}$
 [N]: $\color{green}{\text{NO}}$
 -->
+
+Conceptually, the client's device contains a Passkey lookup table like:
+
+| Site/Domain | User-id | Biometry-encrypted Private Key of Passkey |
+|----         |----     |----                                       |
+| `site1.com` | `u1`    | `****************`                        |
+| `site1.com` | `u2`    | `****************`                        |
+| `site2.com` | `u1`    | `****************`                        |
+
+And the server for site `site1.com` contains a lookup table like:
+
+| User-id | Public Key of Passkey of User |
+|----     |----                           |
+| `x1`    | $P_{x1}$                      |
+| `u1`    | $P_{u1}$                      |
+| `x2`    | $P_{x2}$                      |
+| `u2`    | $P_{u2}$                      |
+| `...`   | $P_{...}$                     |
+
+
+
 
 
