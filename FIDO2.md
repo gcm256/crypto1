@@ -150,7 +150,10 @@ India's digital infrastructure is slowly piloting this framework, but until it b
 A Passkey is a per-domain Private-Public key-pair, generated at the client user's device, and saved in the device's vault/keychain and encrypted by the user's biometric ID eg fingerprint
 or faceID etc.
 
-Unlike login/pswd, which _is_ the exact complete sufficient information needed to be known by anyone to use it and gain privileged access (2FA can still protect, but still the pswd is successfully stolen and you've to change it), the Passkey method is not usable (to gain privileged access) by anyone other than the client device where the passkey resides. For others, it only serves as a method to authenticate the client. This is because, a password is a fully **shared-secret** but a Passkey never ever shares its Private Key portion.
+Unlike login/pswd, which _is_ the exact complete sufficient information needed to be known by anyone in order to use it and gain privileged access (2FA can still protect, but still the pswd is successfully stolen and you've to change it), the Passkey method is not usable (to gain privileged access) by anyone other than the client device where the passkey resides. For others, it only serves as a method to authenticate the client. This is because:
+
+> [!IMPORTANT]
+> a password is a fully **shared-secret** but a Passkey never ever shares its Private Key portion.
 
 - Think of a Passkey for a site/domain as a 2-part password created at the user device, and saved in a lookup table at the device, with each table entry mapping a site/domain (which the user accesses securely) to its respective Passkey.
   - The Private portion never leaves the device.
@@ -191,6 +194,12 @@ Conceptually, the client's device contains a Passkey lookup table like:
 | `site1.com` | `u1`    | `****************`                        |
 | `site1.com` | `u2`    | `****************`                        |
 | `site2.com` | `u1`    | `****************`                        |
+
+> [!NOTE]
+> The device in the above example has two Passkeys for two user accounts `u1` and `u2` of the same site `site1.com`:
+> One Passkey for `u1` to sign-in at `site1.com` and another Passkey for `u2` to sign-in at `site1.com`.
+> For example, a family's laptop might have multiple Passkeys set for a single site, one Passkey each for each one of the family-members' respective accounts
+> (eg email ids) on that site (eg mail.google.com).
 
 And the server for site `site1.com` contains a lookup table like:
 
