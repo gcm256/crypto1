@@ -987,7 +987,7 @@ $$
 More formally:
 
 $$
-\mathrm{ord}(P)=\min{m>0 : mP=𝒪}
+\mathrm{ord}(P)=\min \left\\{ m>0 : mP=𝒪 \right\\}
 $$
 
 where:
